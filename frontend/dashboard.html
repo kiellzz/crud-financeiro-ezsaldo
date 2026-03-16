@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>EZSaldo • Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="dashboard-header">
+    <div class="logo-header">
+      <span class="ez">EZ</span><span class="saldo">Saldo</span>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">Sair</button>
+  </header>
+
+  <!-- MAIN -->
+  <main class="dashboard">
+
+    <!-- SALDO -->
+    <section class="card saldo-card">
+      <h3>Saldo Atual</h3>
+      <p id="balance">R$ 0.00</p>
+    </section>
+
+    <!-- NOVA TRANSAÇÃO -->
+    <section class="card">
+      <h3>Nova Transação</h3>
+
+      <form id="transactionForm">
+
+        <!-- DESCRIÇÃO COM CONTADOR -->
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="description" 
+            placeholder="Descrição (opcional)"
+            maxlength="40"
+          >
+          <small id="charCount">0/40</small>
+        </div>
+
+        <input 
+          type="number" 
+          id="amount" 
+          placeholder="Valor (use negativo para gasto)" 
+          step="0.01" 
+          required
+        >
+
+        <button type="submit">Adicionar</button>
+      </form>
+    </section>
+
+    <!-- LISTA -->
+    <section class="card">
+      <h3>Transações</h3>
+      <ul id="transactionList"></ul>
+    </section>
+
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

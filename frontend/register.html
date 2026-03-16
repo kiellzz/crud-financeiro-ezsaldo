@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>EZSaldo • Criar Conta</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Logo fora do container -->
+  <div class="main-logo">
+    <span class="ez">EZ</span><span class="saldo">Saldo</span>
+  </div>
+
+  <div class="container">
+    <h2>Criar Conta</h2>
+
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Nome completo" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <input type="password" id="confirmPassword" placeholder="Confirmar senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <p>Já tem conta? <a href="login.html">Entrar</a></p>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>

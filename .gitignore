@@ -1,0 +1,28 @@
+# node modules
+node_modules/
+
+# env files (senhas e tokens)
+.env
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# arquivos temporários
+*.tmp
+*.temp
+
+# build
+dist/
+build/
+
+# coverage
+coverage/

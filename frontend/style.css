@@ -1,0 +1,445 @@
+/* Login e registro */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #e2e8f0;
+}
+
+.container {
+  background: #1e293b;
+  padding: 40px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 5px #38bdf8;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0ea5e9;
+  transform: translateY(-2px);
+}
+
+p {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* logo */
+.main-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.main-logo .ez {
+  position: relative;
+  background: linear-gradient(
+    120deg,
+    #38bdf8 0%,
+    #38bdf8 40%,
+    #ffffff 50%,
+    #38bdf8 60%,
+    #38bdf8 100%
+  );
+  background-size: 200% auto;
+  background-position: -200% center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 4s infinite;
+}
+
+
+.main-logo .saldo {
+  color: #e2e8f0;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  20% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* =========================
+   DASHBOARD - EZSaldo
+========================= */
+
+/* HEADER FIXO */
+
+.dashboard-header {
+  width: 100%;
+  padding: 20px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+  z-index: 1000;
+}
+
+/* BOTÃO SUTIL E PEQUENO */
+.logout-btn {
+  all: unset; /* remove qualquer herança */
+  font-size: 0.85rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+  color: #38bdf8;
+}
+
+
+.logo-header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo-header .ez {
+  color: #38bdf8;
+}
+
+.logo-header .saldo {
+  color: #e2e8f0;
+}
+
+/* LOGOUT */
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #38bdf8;
+  color: #0f172a;
+  border-color: #38bdf8;
+}
+
+/* MAIN LAYOUT */
+
+/* Input */
+
+.input-group {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 70px 12px 12px; /* espaço interno à direita */
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+}
+
+#charCount {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #64748b;
+  pointer-events: none; /* não interfere no clique */
+}
+
+
+.dashboard {
+  margin-top: 120px;
+  width: 90%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CARDS */
+
+.card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* SALDO */
+
+.saldo-card p {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #38bdf8;
+  letter-spacing: 1px;
+}
+
+/* FORM */
+
+#transactionForm input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+  outline: none;
+  transition: 0.3s;
+}
+
+#transactionForm input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+}
+
+#transactionForm button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#transactionForm button:hover {
+  background: #0ea5e9;
+  transform: translateY(-2px);
+}
+
+/* LISTA DE TRANSAÇÕES */
+
+#transactionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#transactionList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px;
+  border-bottom: 1px solid #334155;
+  transition: 0.3s ease;
+}
+
+#transactionList li:hover {
+  background: #0f172a;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-description {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+}
+
+.transaction-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.transaction-amount {
+  font-weight: 600;
+}
+
+.transaction-amount.positive {
+  color: #22c55e;
+}
+
+.transaction-amount.negative {
+  color: #ef4444;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    padding: 15px 20px;
+  }
+
+  .dashboard {
+    margin-top: 110px;
+    width: 95%;
+  }
+
+  .saldo-card p {
+    font-size: 1.8rem;
+  }
+}
+
+/* TRANSACTIONS */
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  gap: 12px;
+}
+
+.transaction-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: 10px;
+}
+
+.transaction-info span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+}
+
+.income {
+  color: #22c55e;
+}
+
+.expense {
+  color: #ef4444;
+}
+
+/* efeito raio login */
+
+
+
+
+
+
+
