@@ -2,7 +2,7 @@ Projeto CRUD em andamento
 
 # EZSaldo • CRUD Financeiro
 
-![EZSaldo Logo](./frontend/logo.png)
+![EZSaldo Logo]
 
 EZSaldo é um **sistema financeiro minimalista**, que permite ao usuário **cadastrar contas, adicionar, editar e remover transações**, visualizar saldo atualizado e histórico de gastos/receitas.  
 
