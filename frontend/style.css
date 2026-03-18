@@ -278,8 +278,20 @@ a:hover {
 .saldo-card p {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #38bdf8;
   letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.saldo-card p.neutral {
+  color: #94a3b8;
+}
+
+.saldo-card p.positive {
+  color: #22c55e;
+}
+
+.saldo-card p.negative {
+  color: #ef4444;
 }
 
 /* FORM */
@@ -389,9 +401,16 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 12px 15px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
   gap: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.transaction-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
 .transaction-info {
@@ -409,21 +428,38 @@ a:hover {
   white-space: nowrap;
 }
 
-.delete-btn {
+.delete-btn, .edit-btn {
   flex-shrink: 0;
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: rgba(239, 68, 68, 0.1);
-  border: none;
-  color: #ef4444;
   font-size: 14px;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1.5px solid #ef4444;
+  color: #ef4444;
 }
 
 .delete-btn:hover {
   background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1.5px solid #22c55e;
+  color: #22c55e;
+}
+
+.edit-btn:hover {
+  background: rgba(34, 197, 94, 0.2);
   transform: scale(1.1);
 }
 
@@ -435,7 +471,91 @@ a:hover {
   color: #ef4444;
 }
 
-/* efeito raio login */
+.error-message {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #171a21;
+  border: 1px solid #252a35;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #252a35;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  border-color: #4f7cff;
+  color: #4f7cff;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(15, 17, 21, 0.7);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 7px solid #252a35;
+  border-top: 7px solid #4f7cff;
+  border-radius: 70%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
 
 
 

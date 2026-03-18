@@ -1,143 +1,294 @@
-document.addEventListener("DOMContentLoaded", () => {
+function showLoader() {
+  const loader = document.getElementById("globalLoader");
+  if (loader) loader.classList.remove("hidden");
+}
 
-  const form = document.getElementById("transactionForm");
-  const descriptionInput = document.getElementById("description");
-  const amountInput = document.getElementById("amount");
-  const transactionList = document.getElementById("transactionList");
-  const balanceDisplay = document.getElementById("balance");
-  const charCount = document.getElementById("charCount");
+function hideLoader() {
+  const loader = document.getElementById("globalLoader");
+  if (loader) loader.classList.add("hidden");
+}
 
-  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+const API_URL = "http://localhost:5000/api/transactions";
 
-  /* ============================= */
-  /* UTIL */
-  /* ============================= */
+const token = localStorage.getItem("token");
 
-  const saveToStorage = () => {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-  };
+// 🔒 proteção
+if (!token) {
+  window.location.href = "login.html";
+}
 
-  const formatCurrency = (value) => {
-    return value.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
-  };
+// elementos
+const form = document.getElementById("transactionForm");
+const descriptionInput = document.getElementById("description");
+const amountInput = document.getElementById("amount");
+const list = document.getElementById("transactionsList");
+const balanceDisplay = document.getElementById("balance");
+const charCount = document.getElementById("charCount");
+const logoutBtn = document.getElementById("logoutBtn");
 
-  const generateId = () => {
-    return crypto.randomUUID();
-  };
+// estado de edição
+let editingId = null;
 
-  /* ============================= */
-  /* SALDO */
-  /* ============================= */
+/* ============================= */
+/* FORMAT */
+/* ============================= */
 
-  const updateBalance = () => {
-    const total = transactions.reduce((acc, t) => acc + t.amount, 0);
-    balanceDisplay.textContent = formatCurrency(total);
-  };
-
-  /* ============================= */
-  /* DELETE */
-  /* ============================= */
-
-  const deleteTransaction = (id) => {
-    transactions = transactions.filter(t => t.id !== id);
-    saveToStorage();
-    renderTransactions();
-  };
-
-  transactionList.addEventListener("click", (e) => {
-    const deleteButton = e.target.closest(".delete-btn");
-
-    if (!deleteButton) return;
-
-    const id = deleteButton.dataset.id;
-    deleteTransaction(id);
+const formatCurrency = (value) => {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
   });
+};
 
-  /* ============================= */
-  /* RENDER */
-  /* ============================= */
+/* ============================= */
+/* LOAD */
+/* ============================= */
 
-  const renderTransactions = () => {
-    transactionList.innerHTML = "";
+async function loadTransactions() {
+  showLoader();
 
-    transactions.forEach(transaction => {
+  try {
+    const response = await fetch(API_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert("Erro ao carregar");
+      return;
+    }
+
+    balanceDisplay.innerText = formatCurrency(data.balance);
+    
+    // Aplicar cor ao saldo conforme o valor
+    if (data.balance === 0) {
+      balanceDisplay.classList.remove('positive', 'negative');
+      balanceDisplay.classList.add('neutral');
+    } else if (data.balance > 0) {
+      balanceDisplay.classList.remove('neutral', 'negative');
+      balanceDisplay.classList.add('positive');
+    } else {
+      balanceDisplay.classList.remove('neutral', 'positive');
+      balanceDisplay.classList.add('negative');
+    }
+
+    list.innerHTML = "";
+
+    data.transactions.forEach(t => {
       const li = document.createElement("li");
       li.classList.add("transaction-item");
 
       li.innerHTML = `
         <div class="transaction-info">
-          <span>${transaction.description || "Sem descrição"}</span>
-          <strong class="${transaction.amount < 0 ? "expense" : "income"}">
-            ${formatCurrency(transaction.amount)}
+          <span>${t.description || "Sem descrição"}</span>
+          <strong class="${t.type === "expense" ? "expense" : "income"}">
+            ${formatCurrency(t.amount)}
           </strong>
         </div>
 
-        <button class="delete-btn" data-id="${transaction.id}">
-          ✕
-        </button>
+        <div>
+          <button class="edit-btn" onclick="editTransaction('${t._id}', '${t.description}', ${t.amount}, '${t.type}')">✏️</button>
+          <button class="delete-btn" onclick="deleteTransaction('${t._id}')">🗑️</button>
+        </div>
       `;
 
-      transactionList.appendChild(li);
+      list.appendChild(li);
     });
 
-    updateBalance();
-  };
+  } catch (error) {
+    console.error(error);
+  } finally {
+    hideLoader();
+  }
+}
 
-  /* ============================= */
-  /* CONTADOR DE CARACTERES */
-  /* ============================= */
+/* ============================= */
+/* CREATE + UPDATE */
+/* ============================= */
 
-  if (descriptionInput && charCount) {
-    const updateCounter = () => {
-      if (descriptionInput.value.length > 40) {
-        descriptionInput.value = descriptionInput.value.slice(0, 40);
-      }
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      charCount.textContent = `${descriptionInput.value.length}/40`;
-    };
+  const button = form.querySelector("button");
 
-    descriptionInput.addEventListener("input", updateCounter);
-    updateCounter();
+  const description = descriptionInput.value.trim();
+  const amountValue = parseFloat(amountInput.value);
+
+  if (isNaN(amountValue)) {
+    alert("Valor inválido");
+    return;
   }
 
-  /* ============================= */
-  /* FORM SUBMIT */
-  /* ============================= */
+  const type = amountValue < 0 ? "expense" : "income";
+  const amount = Math.abs(amountValue);
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  const url = editingId
+    ? `${API_URL}/${editingId}`
+    : API_URL;
 
-    const description = descriptionInput.value.trim();
-    const amountValue = parseFloat(amountInput.value);
+  const method = editingId ? "PUT" : "POST";
 
-    if (isNaN(amountValue)) {
-      alert("Valor inválido.");
+  // 🔥 LOADING UI
+  showLoader();
+  button.innerText = editingId ? "Salvando..." : "Adicionando...";
+  button.disabled = true;
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ type, amount, description })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
       return;
     }
 
-    const transaction = {
-      id: generateId(),
-      description,
-      amount: parseFloat(amountValue.toFixed(2)),
-      createdAt: new Date().toISOString()
-    };
-
-    transactions.push(transaction);
-
-    saveToStorage();
-    renderTransactions();
-
+    // reset estado
     form.reset();
-    if (charCount) charCount.textContent = "0/40";
+    editingId = null;
+    charCount.textContent = "0/40";
+
+    // botão volta ao normal
+    button.innerText = "Adicionar";
+
+    // 🔥 atualiza lista
+    await loadTransactions();
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro na operação");
+  } finally {
+    // 🔥 SEMPRE EXECUTA
+    hideLoader();
+    button.disabled = false;
+    button.innerText = "Adicionar";
+  }
+});
+
+/* ============================= */
+/* DELETE */
+/* ============================= */
+
+window.deleteTransaction = function (id) {
+  transactionToDelete = id;
+  deleteModal.classList.remove("hidden");
+};
+
+let transactionToDelete = null;
+
+const deleteModal = document.getElementById("deleteModal");
+const confirmDeleteBtn = document.getElementById("confirmDelete");
+const cancelDeleteBtn = document.getElementById("cancelDelete");
+
+/* ============================= */
+/* EDIT */
+/* ============================= */
+
+function editTransaction(id, description, amount, type) {
+  editingId = id;
+
+  descriptionInput.value = description || "";
+
+  const value = type === "expense" ? -amount : amount;
+  amountInput.value = value;
+
+  form.querySelector("button").innerText = "Atualizar";
+}
+
+/* ============================= */
+/* CHAR COUNT */
+/* ============================= */
+
+if (descriptionInput && charCount) {
+  descriptionInput.addEventListener("input", () => {
+    if (descriptionInput.value.length > 40) {
+      descriptionInput.value = descriptionInput.value.slice(0, 40);
+    }
+
+    charCount.textContent = `${descriptionInput.value.length}/40`;
   });
+}
 
-  /* ============================= */
-  /* INIT */
-  /* ============================= */
+/* ============================= */
+/* LOGOUT */
+/* ============================= */
 
-  renderTransactions();
+const modal = document.getElementById("logoutModal");
+const confirmBtn = document.getElementById("confirmLogout");
+const cancelBtn = document.getElementById("cancelLogout");
 
+// abrir modal
+logoutBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+});
+
+// cancelar
+cancelBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+// confirmar logout
+confirmBtn.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+});
+
+/* ============================= */
+/* INIT */
+/* ============================= */
+
+loadTransactions();
+
+
+
+
+
+
+// cancelar
+cancelDeleteBtn.addEventListener("click", () => {
+  deleteModal.classList.add("hidden");
+  transactionToDelete = null;
+});
+
+// confirmar delete
+confirmDeleteBtn.addEventListener("click", async () => {
+  if (!transactionToDelete) return;
+
+  showLoader();
+
+  try {
+    const response = await fetch(`${API_URL}/${transactionToDelete}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
+      return;
+    }
+
+    await loadTransactions();
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao deletar");
+  } finally {
+    hideLoader();
+    deleteModal.classList.add("hidden");
+    transactionToDelete = null;
+  }
 });

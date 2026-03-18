@@ -1,64 +1,128 @@
-// TELA DE LOGIN
+// ==============================
+// CONFIG
+// ==============================
 
-document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
-  e.preventDefault();
+const API_URL = "http://localhost:5000/api/auth";
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+// ==============================
+// LOADER (seguro)
+// ==============================
 
-  const response = await fetch("http://localhost:5000/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
+function showLoader() {
+  const loader = document.getElementById("globalLoader");
+  if (loader) loader.classList.remove("hidden");
+}
+
+function hideLoader() {
+  const loader = document.getElementById("globalLoader");
+  if (loader) loader.classList.add("hidden");
+}
+
+// ==============================
+// LOGIN
+// ==============================
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const errorText = document.getElementById("loginError");
+    if (errorText) errorText.textContent = "";
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    showLoader();
+
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        hideLoader();
+
+        if (errorText) {
+          if (data.message === "Usuário não encontrado") {
+            errorText.textContent = "Usuário não encontrado";
+          } else if (data.message === "Senha inválida") {
+            errorText.textContent = "Senha incorreta";
+          } else {
+            errorText.textContent = data.message || "Erro ao fazer login";
+          }
+        }
+
+        return;
+      }
+
+      // sucesso
+      localStorage.setItem("token", data.token);
+
+      // pequena transição
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 400);
+
+    } catch (error) {
+      hideLoader();
+      if (errorText) {
+        errorText.textContent = "Erro de conexão com servidor";
+      }
+    }
   });
+}
 
-  const data = await response.json();
+// ==============================
+// REGISTER
+// ==============================
 
-  if (response.ok) {
-    localStorage.setItem("token", data.token);
-    window.location.href = "dashboard.html";
-  } else {
-    alert(data.message);
-  }
-});
+const registerForm = document.getElementById("registerForm");
 
-// TELA DE REGISTRO
+if (registerForm) {
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
+    showLoader();
 
-  if (password !== confirmPassword) {
-    alert("As senhas não coincidem.");
-    return;
-  }
+    try {
+      const response = await fetch(`${API_URL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, password })
+      });
 
-  const response = await fetch("http://localhost:5000/api/auth/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ name, email, password })
+      const data = await response.json();
+
+      if (!response.ok) {
+        hideLoader();
+        alert(data.message || "Erro ao cadastrar");
+        return;
+      }
+
+      // sucesso
+      alert("Conta criada com sucesso!");
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 400);
+
+    } catch (error) {
+      hideLoader();
+      alert("Erro ao conectar com servidor");
+    }
   });
-
-  const data = await response.json();
-
-  if (response.ok) {
-    alert("Conta criada com sucesso!");
-    window.location.href = "login.html";
-  } else {
-    alert(data.message);
-  }
-});
-
-
-
-
-
-
+}

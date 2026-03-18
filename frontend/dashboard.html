@@ -10,7 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+  <div id="globalLoader" class="loader hidden">
+  <div class="spinner"></div>
+</div>
 
   <!-- HEADER -->
   <header class="dashboard-header">
@@ -62,11 +67,35 @@
     <!-- LISTA -->
     <section class="card">
       <h3>Transações</h3>
-      <ul id="transactionList"></ul>
+      <ul id="transactionsList"></ul> 
     </section>
 
   </main>
 
+  <!-- MODAL LOGOUT -->
+<div id="logoutModal" class="modal hidden">
+  <div class="modal-content">
+    <p>Tem certeza que deseja fazer o logout?</p>
+
+    <div class="modal-actions">
+      <button id="confirmLogout">Sim</button>
+      <button id="cancelLogout">Não</button>
+    </div>
+  </div>
+</div>
+
+<div id="deleteModal" class="modal hidden">
+  <div class="modal-content">
+    <p>Tem certeza que deseja excluir esta transação?</p>
+
+    <div class="modal-actions">
+      <button id="confirmDelete">Sim</button>
+      <button id="cancelDelete">Não</button>
+    </div>
+  </div>
+</div>
+
   <script src="dashboard.js"></script>
+</div>
 </body>
 </html>
