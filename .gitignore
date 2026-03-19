@@ -1,9 +1,6 @@
 # node modules
 node_modules/
 
-#.env
-.env
-
 # env files (senhas e tokens)
 .env
 
