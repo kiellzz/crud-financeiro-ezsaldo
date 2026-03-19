@@ -1,4 +1,4 @@
-Projeto CRUD em andamento
+Projeto CRUD em andamento (apenas rodando localmente, por enquanto)
 
 # EZSaldo • CRUD Financeiro
 
