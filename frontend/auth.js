@@ -65,6 +65,7 @@ if (loginForm) {
 
       // sucesso
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.name);
 
       // pequena transição
       setTimeout(() => {

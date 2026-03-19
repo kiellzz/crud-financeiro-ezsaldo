@@ -25,6 +25,13 @@ const list = document.getElementById("transactionsList");
 const balanceDisplay = document.getElementById("balance");
 const charCount = document.getElementById("charCount");
 const logoutBtn = document.getElementById("logoutBtn");
+const nameDisplay = document.querySelector(".name");
+
+// Exibir nome do usuário
+const userName = localStorage.getItem("userName");
+if (nameDisplay && userName) {
+  nameDisplay.textContent = userName;
+}
 
 // estado de edição
 let editingId = null;
@@ -240,6 +247,7 @@ cancelBtn.addEventListener("click", () => {
 // confirmar logout
 confirmBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("userName");
   window.location.href = "login.html";
 });
 

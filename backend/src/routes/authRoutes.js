@@ -81,7 +81,8 @@ router.post("/login", async (req, res) => {
 
     res.json({
       message: "Login realizado",
-      token
+      token,
+      name: user.name
     });
 
   } catch (error) {
