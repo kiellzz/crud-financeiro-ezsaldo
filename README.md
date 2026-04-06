@@ -1,39 +1,107 @@
-> ⚠️ **Status do Projeto:** Em desenvolvimento (atualmente rodando apenas localmente).
+> ⚠️ **Status do Projeto:** Em desenvolvimento (atualmente rodando localmente)
 
-# 💸 EZSaldo • CRUD Financeiro
+# 💰 EZSaldo • Sistema Financeiro Web
 
-O **EZSaldo** é um sistema financeiro minimalista desenvolvido para ajudar o usuário a ter controle total sobre seu dinheiro. Com ele, é possível cadastrar contas, gerenciar transações (receitas e despesas), visualizar o saldo atualizado em tempo real e acompanhar o histórico detalhado de movimentações.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+O **EZSaldo** é uma aplicação web de controle financeiro desenvolvida com foco em **clareza, organização e experiência do usuário**.
+
+O sistema permite gerenciar receitas e despesas, acompanhar o saldo em tempo real e visualizar a evolução financeira através de um dashboard moderno e interativo.
+
+---
+
+## 🎯 Objetivo do Projeto
+
+Este projeto foi desenvolvido com o objetivo de:
+
+- Simular um sistema financeiro real
+- Praticar desenvolvimento fullstack (frontend + backend)
+- Aplicar conceitos de UX/UI em um produto funcional
+- Criar um projeto sólido para portfólio
+
+---
+
+## 📸 Preview
+
+Interface moderna com foco em experiência do usuário:
+
+### 🔐 Tela de Login
+![Login](./media/login.png)
+
+### 📊 Dashboard Financeiro
+![Dashboard](./media/dashboard.png)
+
+### 👤 Edição de Perfil
+![Edit User](./media/edituser.png)
+
+### ✂️ Recorte de Avatar
+![Crop](./media/crop.png)
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-**Frontend:**
-* HTML5, CSS3 e JavaScript
-* Design responsivo com feedback visual (Loaders e transições)
+### 🔹 Frontend
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- Interface responsiva
+- Feedback visual (loaders, estados, modais)
 
-**Backend:**
-* Node.js com Express
-* MongoDB (Banco de Dados NoSQL)
-* JWT (JSON Web Tokens para Autenticação)
+### 🔹 Backend
+- Node.js
+- Express
+- MongoDB (Atlas)
+- Mongoose
+- JWT (autenticação)
+- bcrypt (criptografia de senha)
 
 ---
 
 ## 🚀 Funcionalidades
 
-* 🔐 **Autenticação:** Cadastro e login de usuários com senha criptografada e JWT.
-* ➕ **Gestão de Transações:** Adição de receitas e despesas.
-* ✏️ **Controle Total:** Edição e exclusão de transações já cadastradas.
-* 📜 **Histórico:** Visualização do histórico completo de movimentações.
-* 💰 **Dashboard Dinâmico:** Saldo atualizado em tempo real com diferenciação visual de cores (saldo positivo/negativo).
-* 🎨 **Experiência do Usuário (UX):** Confirmação visual para ações críticas (como exclusão e logout) e loaders durante as transições.
+- 🔐 **Autenticação segura**
+  - Cadastro e login com senha criptografada
+  - Autenticação via JWT
+
+- 💰 **Gestão de Transações**
+  - Adição de receitas e despesas
+  - Edição e exclusão de registros
+
+- 📊 **Dashboard Dinâmico**
+  - Saldo atualizado em tempo real
+  - Diferenciação visual (positivo/negativo)
+  - Gráfico de evolução do saldo
+
+- 📅 **Filtros de Período**
+  - Visualização por intervalo (7 dias, 30 dias)
+
+- 🎨 **Experiência do Usuário**
+  - Modais de confirmação (exclusão/logout)
+  - Feedback visual em ações
+  - Loader durante requisições
+  - Interface moderna e consistente
 
 ---
 
-## 🖥 Estrutura do Projeto
+## 🧩 Diferenciais
+
+- Interface inspirada em aplicações reais (fintechs)
+- Foco em **usabilidade e feedback visual**
+- Estrutura organizada (frontend + backend separados)
+- Projeto pensado como produto, não apenas CRUD
+
+---
+
+## 🖥️ Estrutura do Projeto
 
 ```text
-crud-financeiro-ezsaldo/
+CrudFinanceiro/
 ├─ backend/
 │  ├─ src/
 │  │  ├─ models/
@@ -54,39 +122,77 @@ crud-financeiro-ezsaldo/
 │  ├─ auth.js
 │  └─ dashboard.js
 │
+├─ media/
+│  ├─ login.png
+│  ├─ dashboard.png
+│  ├─ edituser.png
+│  └─ crop.png
+│
 └─ README.md
-```
+````
 
 ---
 
 ## ⚙️ Como executar localmente
 
 ### 1. Clone o repositório
-Abra o seu terminal e rode os comandos abaixo para baixar o projeto:
+
 ```bash
-git clone https://github.com/kiellzz/crud-financeiro-ezsaldo.git
-cd crud-financeiro-ezsaldo
+git clone https://github.com/kiellzz/CrudFinanceiro.git
+cd CrudFinanceiro
 ```
 
-### 2. Configurando o Backend
-Navegue até a pasta do backend e instale as dependências necessárias:
+---
+
+### 2. Configuração do Backend
+
 ```bash
 cd backend
 npm install
 ```
 
-Configure as variáveis de ambiente:
-1. Renomeie o arquivo `.env.example` para `.env`.
-2. Adicione a sua string de conexão do cluster do **MongoDB** e sua chave JWT no arquivo `.env`.
+Crie o arquivo `.env` e configure:
+
+```env
+MONGO_URI=sua_string_mongodb
+JWT_SECRET=sua_chave_secreta
+```
 
 Inicie o servidor:
+
 ```bash
-npm start 
-# ou node src/server.js (dependendo da configuração do seu package.json)
+npm start
 ```
-> 📍 O backend ficará disponível em: `http://localhost:5000/`
+
+> 📍 Backend disponível em: [http://localhost:5000](http://localhost:5000)
+
+---
 
 ### 3. Rodando o Frontend
-Como o frontend é feito com HTML, CSS e JS puros, você não precisa instalar dependências para ele. Basta:
-* Dar um clique duplo no arquivo `login.html` para abri-lo direto no navegador.
-* **Ou** utilizar a extensão *Live Server* do VS Code na pasta `frontend` para uma melhor experiência de desenvolvimento.
+
+* Abra o arquivo `login.html` no navegador
+  **ou**
+* Use a extensão **Live Server** no VS Code
+
+---
+
+## 📌 Melhorias Futuras
+
+* 📊 Insights financeiros automáticos
+* 🧠 Análise de gastos por categoria
+* 📱 Melhor responsividade mobile
+* ☁️ Deploy completo (frontend + backend)
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Ezequiel Borges**
+🔗 GitHub: [https://github.com/kiellzz](https://github.com/kiellzz)
+🔗 LinkedIn: [https://www.linkedin.com/in/ezequielborgesdev](https://www.linkedin.com/in/ezequielborgesdev)
+
+---
+
+## ⭐ Considerações
+
+Este projeto representa minha evolução como desenvolvedor, com foco em construir aplicações que entregam não apenas funcionalidade, mas também **experiência e clareza para o usuário**.
