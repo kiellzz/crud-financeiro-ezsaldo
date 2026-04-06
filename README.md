@@ -22,7 +22,6 @@ Este projeto foi desenvolvido com o objetivo de:
 - Simular um sistema financeiro real
 - Praticar desenvolvimento fullstack (frontend + backend)
 - Aplicar conceitos de UX/UI em um produto funcional
-- Criar um projeto sólido para portfólio
 
 ---
 
