@@ -188,7 +188,9 @@ npm start
 ## 👨‍💻 Autor
 
 Desenvolvido por **Ezequiel Borges**
+
 🔗 GitHub: [https://github.com/kiellzz](https://github.com/kiellzz)
+
 🔗 LinkedIn: [https://www.linkedin.com/in/ezequielborgesdev](https://www.linkedin.com/in/ezequielborgesdev)
 
 ---
