@@ -113,7 +113,9 @@ CrudFinanceiro/
 │  │  │  ├─ authRoutes.js
 │  │  │  └─ transactionRoutes.js
 │  │  └─ server.js
-│  └─ .env.example
+│  ├─ .env.example
+│  ├─ package-lock.json
+│  └─ package.json
 │
 ├─ frontend/
 │  ├─ assets/
