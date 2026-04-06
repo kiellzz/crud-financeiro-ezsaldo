@@ -104,23 +104,31 @@ Interface moderna com foco em experiência do usuário:
 CrudFinanceiro/
 ├─ backend/
 │  ├─ src/
+│  │  ├─ middleware/
+│  │  │  └─ authMiddleware.js
 │  │  ├─ models/
-│  │  │  ├─ User.js
-│  │  │  └─ Transaction.js
+│  │  │  ├─ Transaction.js
+│  │  │  └─ User.js
 │  │  ├─ routes/
 │  │  │  ├─ authRoutes.js
 │  │  │  └─ transactionRoutes.js
 │  │  └─ server.js
-│  ├─ package.json
-│  └─ .env
+│  └─ .env.example
 │
 ├─ frontend/
+│  ├─ assets/
+│  ├─ auth.js
+│  ├─ chart.js
+│  ├─ cropImage.js
+│  ├─ dashboard.css
+│  ├─ dashboard.html
+│  ├─ dashboard.js
+│  ├─ editUser.css
+│  ├─ editUser.html
+│  ├─ editUser.js
 │  ├─ login.html
 │  ├─ register.html
-│  ├─ dashboard.html
-│  ├─ style.css
-│  ├─ auth.js
-│  └─ dashboard.js
+│  └─ style.css
 │
 ├─ media/
 │  ├─ login.png
