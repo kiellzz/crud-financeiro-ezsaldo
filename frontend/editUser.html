@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EZSaldo - Editar Perfil</title>
+  <link rel="stylesheet" href="editUser.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="globalLoader" class="loader hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="appToast" class="app-toast hidden" role="status" aria-live="polite"></div>
+
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="./assets/bg.mp4" type="video/mp4">
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <header class="edit-header">
+    <a class="back-link" href="dashboard.html" aria-label="Voltar ao dashboard" title="Voltar ao dashboard">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      <span>Dashboard</span>
+    </a>
+
+    <div class="logo-header">
+      <span class="ez">EZ</span><span class="saldo">Saldo</span>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn" type="button" aria-label="Sair" title="Sair">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5v-2H5V5h5V3z" />
+        <path d="M13 7l5 5-5 5v-3H9v-4h4V7z" />
+      </svg>
+    </button>
+  </header>
+
+  <main class="edit-layout">
+    <section class="profile-card">
+      <div class="profile-hero">
+        <h1>Editar perfil</h1>
+        <p>Atualize seus dados ou foto de perfil</p>
+      </div>
+
+      <form id="editUserForm" class="profile-form">
+        <div class="profile-overview">
+          <div class="avatar-upload">
+            <div class="avatar-preview-wrapper">
+              <button type="button" id="avatarPickerBtn" class="avatar-preview-mask"
+                aria-label="Adicionar imagem de perfil" title="Adicionar imagem de perfil">
+                <img id="avatarPreview" class="avatar-preview hidden" alt="Previa da foto de perfil">
+              </button>
+
+              <button type="button" id="removeImageBtn" class="avatar-remove-btn hidden" aria-label="Remover imagem"
+                title="Remover imagem"></button>
+            </div>
+
+            <input type="file" id="profileImage" accept="image/*" hidden>
+            <p id="avatarTip" class="avatar-tip">Clique no ícone para trocar a imagem de perfil</p>
+          </div>
+
+          <div class="profile-summary">
+            <span class="profile-summary-label">Seu perfil</span>
+            <strong id="profileGreeting">Carregando perfil...</strong>
+          </div>
+        </div>
+
+        <label class="field-group" for="editUserName">
+          <span>Nome completo</span>
+          <input type="text" id="editUserName" name="name" placeholder="Seu nome completo" maxlength="60"
+            autocomplete="name" autocapitalize="words" required>
+        </label>
+
+        <p id="formFeedback" class="form-feedback hidden" role="alert" aria-live="polite"></p>
+
+        <section class="account-meta" aria-label="Informacoes da conta">
+          <div class="account-meta-item">
+            <span class="account-meta-label">Email</span>
+            <button id="openChangeEmailBtn" class="account-meta-email-btn" type="button" aria-label="Alterar email">
+              <span id="accountEmail" class="account-meta-value">Carregando...</span>
+            </button>
+          </div>
+
+          <div class="account-meta-item">
+            <span class="account-meta-label">Conta criada em</span>
+            <strong id="accountCreatedAt" class="account-meta-value">Carregando...</strong>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button id="openDeleteAccountBtn" class="danger-btn" type="button">
+            <span class="danger-btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3.8 21 19.5a1.1 1.1 0 0 1-.96 1.7H3.96A1.1 1.1 0 0 1 3 19.5L12 3.8Z" fill="currentColor"
+                  fill-opacity="0.14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                <path d="M12 9v4.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <circle cx="12" cy="16.9" r="1.1" fill="currentColor" />
+              </svg>
+            </span>
+            <span>Excluir usuário</span>
+          </button>
+
+          <button id="openChangePasswordBtn" class="secondary-btn" type="button">Alterar senha</button>
+          <a class="secondary-btn" href="dashboard.html">Voltar para o dashboard</a>
+          <button id="saveProfileBtn" type="submit">Salvar alterações</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div id="logoutModal" class="modal hidden">
+    <div class="modal-content">
+      <p>Tem certeza que deseja fazer o logout?</p>
+
+      <div class="modal-actions">
+        <button id="confirmLogout">Sim</button>
+        <button id="cancelLogout">N&atilde;o</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteAccountModal" class="confirm-modal hidden">
+    <div class="confirm-modal-content delete-account-modal-content">
+      <div id="deleteAccountStepIntro" class="confirm-step">
+        <h3>Tem certeza?</h3>
+        <p>Sua senha será requisitada para confirmar a exclusão.</p>
+
+        <div class="confirm-modal-actions">
+          <button id="cancelDeleteAccountBtn" class="modal-secondary-btn" type="button">Não</button>
+          <button id="continueDeleteAccountBtn" class="danger-btn" type="button">Sim</button>
+        </div>
+      </div>
+
+      <div id="deleteAccountStepConfirm" class="confirm-step hidden">
+        <h3>Confirmar exclusão</h3>
+        <p>Digite sua senha para confirmar a exclusão da sua conta.</p>
+
+        <div class="delete-account-gif-shell">
+          <img class="delete-account-gif" src="assets/delete-warning.gif" alt="Aviso animado de exclusao">
+        </div>
+
+        <label class="field-group modal-field" for="deleteAccountPassword">
+          <span>Senha</span>
+
+          <div class="modal-password-group">
+            <input type="password" id="deleteAccountPassword" placeholder="Digite sua senha"
+              autocomplete="current-password">
+
+            <button type="button" class="toggle-password delete-password-toggle" aria-label="Mostrar senha"
+              aria-pressed="false">
+              <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path class="eye-open" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle class="eye-open" cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                <path class="eye-closed" d="M3 3l18 18" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" />
+                <path class="eye-closed" d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6.5 0 10 6 10 6a16.7 16.7 0 0 1-3.02 3.59"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="eye-closed" d="M6.61 6.61A16.1 16.1 0 0 0 2 12s3.5 6 10 6a10.4 10.4 0 0 0 4.24-.85"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <div class="warning-box">
+          <strong>Não será possivel recuperar sua conta depois!</strong>
+          <span>Este processo é <span class="warning-highlight">IRREVERSÍVEL!</span></span>
+        </div>
+
+        <p id="deleteAccountFeedback" class="modal-feedback hidden" role="alert" aria-live="polite"></p>
+
+        <div class="confirm-modal-actions">
+          <button id="backDeleteAccountBtn" class="modal-secondary-btn" type="button">Voltar</button>
+          <button id="confirmDeleteAccountBtn" class="danger-btn" type="button">Excluir conta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="changePasswordModal" class="confirm-modal hidden" role="dialog" aria-modal="true"
+    aria-labelledby="changePasswordTitle">
+    <div class="confirm-modal-content password-modal-content">
+      <h3 id="changePasswordTitle">Alterar senha</h3>
+      <p>Informe sua senha atual e defina uma nova senha para atualizar seu acesso.</p>
+
+      <form id="changePasswordForm" class="password-modal-form">
+        <label class="field-group modal-field" for="currentPassword">
+          <span>Senha atual</span>
+
+          <div class="modal-password-group">
+            <input type="password" id="currentPassword" placeholder="Digite sua senha atual"
+              autocomplete="current-password">
+
+            <button type="button" class="toggle-password" aria-label="Mostrar senha" aria-pressed="false">
+              <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path class="eye-open" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle class="eye-open" cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                <path class="eye-closed" d="M3 3l18 18" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" />
+                <path class="eye-closed" d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6.5 0 10 6 10 6a16.7 16.7 0 0 1-3.02 3.59"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="eye-closed" d="M6.61 6.61A16.1 16.1 0 0 0 2 12s3.5 6 10 6a10.4 10.4 0 0 0 4.24-.85"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <label class="field-group modal-field" for="newPassword">
+          <span>Nova senha</span>
+
+          <div class="modal-password-group">
+            <input type="password" id="newPassword" placeholder="Digite sua nova senha" autocomplete="new-password"
+              minlength="6">
+
+            <button type="button" class="toggle-password" aria-label="Mostrar senha" aria-pressed="false">
+              <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path class="eye-open" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle class="eye-open" cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                <path class="eye-closed" d="M3 3l18 18" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" />
+                <path class="eye-closed" d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6.5 0 10 6 10 6a16.7 16.7 0 0 1-3.02 3.59"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="eye-closed" d="M6.61 6.61A16.1 16.1 0 0 0 2 12s3.5 6 10 6a10.4 10.4 0 0 0 4.24-.85"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <label class="field-group modal-field" for="confirmNewPassword">
+          <span>Confirmar nova senha</span>
+
+          <div class="modal-password-group">
+            <input type="password" id="confirmNewPassword" placeholder="Confirme sua nova senha"
+              autocomplete="new-password" minlength="6">
+
+            <button type="button" class="toggle-password" aria-label="Mostrar senha" aria-pressed="false">
+              <svg class="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path class="eye-open" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle class="eye-open" cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                <path class="eye-closed" d="M3 3l18 18" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" />
+                <path class="eye-closed" d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6.5 0 10 6 10 6a16.7 16.7 0 0 1-3.02 3.59"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="eye-closed" d="M6.61 6.61A16.1 16.1 0 0 0 2 12s3.5 6 10 6a10.4 10.4 0 0 0 4.24-.85"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </label>
+
+        <p id="changePasswordFeedback" class="modal-feedback hidden" role="alert" aria-live="polite"></p>
+
+        <div class="confirm-modal-actions">
+          <button id="cancelChangePasswordBtn" class="modal-secondary-btn" type="button">Cancelar</button>
+          <button id="confirmChangePasswordBtn" class="modal-primary-btn" type="submit">Salvar nova senha</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="changeEmailModal" class="confirm-modal hidden" role="dialog" aria-modal="true"
+    aria-labelledby="changeEmailTitle">
+    <div class="confirm-modal-content email-modal-content">
+      <h3 id="changeEmailTitle">Alterar email</h3>
+      <p>Digite seu novo email e confirme a alteração.</p>
+
+      <form id="changeEmailForm" class="email-modal-form">
+        <label class="field-group modal-field" for="newEmail">
+          <span>Novo email</span>
+          <input type="email" id="newEmail" placeholder="Digite seu novo email" autocomplete="email" inputmode="email">
+        </label>
+
+        <p id="changeEmailFeedback" class="modal-feedback hidden" role="alert" aria-live="polite"></p>
+
+        <div class="confirm-modal-actions">
+          <button id="cancelChangeEmailBtn" class="modal-secondary-btn" type="button">Cancelar</button>
+          <button id="confirmChangeEmailBtn" class="modal-primary-btn" type="submit">Confirmar email</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="cropModal" class="crop-modal hidden">
+    <div class="crop-modal-content">
+      <h3>Ajustar foto</h3>
+      <p>Posicione a imagem antes de confirmar.</p>
+
+      <div class="cropper-container-wrapper">
+        <img id="cropperImage" alt="Imagem para recorte">
+      </div>
+
+      <div class="crop-controls">
+        <label for="zoomRange">Zoom</label>
+        <input id="zoomRange" type="range" min="1" max="3" step="0.01" value="1">
+      </div>
+
+      <div class="crop-modal-actions">
+        <button type="button" id="cancelCropBtn" class="crop-cancel-btn">Cancelar</button>
+        <button type="button" id="confirmCropBtn" class="crop-confirm-btn">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+  <script src="cropImage.js"></script>
+  <script src="editUser.js"></script>
+</body>
+
+</html>

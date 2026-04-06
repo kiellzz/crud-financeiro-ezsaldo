@@ -1,105 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EZSaldo • Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@500;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
 
   <div id="globalLoader" class="loader hidden">
-  <div class="spinner"></div>
-</div>
+    <div class="spinner"></div>
+  </div>
+
+  <div id="appToast" class="app-toast hidden" role="status" aria-live="polite"></div>
+
+  <!-- FUNDO -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="./assets/bg.mp4" type="video/mp4">
+  </video>
+
+  <div class="video-overlay"></div>
 
   <!-- HEADER -->
   <header class="dashboard-header">
     <div class="logo-header">
       <span class="ez">EZ</span><span class="saldo">Saldo</span>
     </div>
-    <div>
-  <span class="intro">Seja bem-vindo(a)</span>
-  <span class="name"></span>
-</div>
 
-    <button id="logoutBtn" class="logout-btn">Sair</button>
+    <div class="header-actions">
+      <button id="editProfileBtn" class="header-user-panel" type="button" aria-label="Abrir tela de editar perfil"
+        title="Editar perfil">
+        <div class="dashboard-avatar-shell">
+          <div class="dashboard-avatar-mask">
+            <img id="dashboardAvatar" class="dashboard-avatar" src="assets/avatar-default.png" alt="Foto de perfil">
+          </div>
+        </div>
+
+        <div class="welcome-box">
+          <span class="intro">Seja bem-vindo(a),</span>
+          <span class="name"></span>
+        </div>
+
+        <span class="header-user-panel-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </span>
+      </button>
+
+      <button id="logoutBtn" class="logout-btn" type="button" aria-label="Sair" title="Sair">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5v-2H5V5h5V3z" />
+          <path d="M13 7l5 5-5 5v-3H9v-4h4V7z" />
+        </svg>
+      </button>
+    </div>
   </header>
 
   <!-- MAIN -->
-  <main class="dashboard">
+  <main class="dashboard-layout">
 
-    <!-- SALDO -->
-    <section class="card saldo-card">
-      <h3>Saldo Atual</h3>
-      <p id="balance">R$ 0.00</p>
-    </section>
+    <!-- ESQUERDA -->
+    <div class="dashboard-left">
 
-    <!-- NOVA TRANSAÇÃO -->
-    <section class="card">
-      <h3>Nova Transação</h3>
+      <section class="card saldo-card">
+        <h3>Saldo Atual</h3>
+        <p id="balance">R$ 0,00</p>
+      </section>
 
-      <form id="transactionForm">
+      <section class="card">
+        <h3>Nova transação</h3>
 
-        <!-- DESCRIÇÃO COM CONTADOR -->
-        <div class="input-group">
-          <input 
-            type="text" 
-            id="description" 
-            placeholder="Descrição (opcional)"
-            maxlength="40"
-          >
-          <small id="charCount">0/40</small>
+        <form id="transactionForm">
+          <div class="input-group">
+            <input type="text" id="description" placeholder="Descrição (opcional)" maxlength="40">
+            <small id="charCount">0/40</small>
+          </div>
+
+          <div class="amount-input-group">
+            <input type="number" id="amount" placeholder="Valor (use negativo para gasto)" step="0.01" required>
+
+            <div class="amount-stepper">
+              <button id="amountStepUpBtn" class="amount-step-btn" type="button" aria-label="Aumentar valor">
+                <span aria-hidden="true">▴</span>
+              </button>
+
+              <button id="amountStepDownBtn" class="amount-step-btn" type="button" aria-label="Diminuir valor">
+                <span aria-hidden="true">▾</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="date-input-group">
+            <input type="date" id="transactionDate" min="2026-01-01" step="1">
+
+            <div class="date-stepper">
+              <button id="dateStepUpBtn" class="date-step-btn" type="button" aria-label="Avançar um dia">
+                <span aria-hidden="true">▴</span>
+              </button>
+
+              <button id="dateStepDownBtn" class="date-step-btn" type="button" aria-label="Voltar um dia">
+                <span aria-hidden="true">▾</span>
+              </button>
+            </div>
+          </div>
+
+          <p id="formFeedback" class="form-feedback hidden" role="alert" aria-live="polite"></p>
+
+          <button type="submit">Adicionar</button>
+        </form>
+      </section>
+
+      <section class="card transactions-card">
+        <h3>Transações</h3>
+        <ul id="transactionsList"></ul>
+
+        <button id="toggleTransactionsBtn" class="toggle-transactions-btn hidden" type="button">
+          (+) Exibir mais
+        </button>
+      </section>
+    </div>
+
+    <!-- DIREITA -->
+    <div class="dashboard-right">
+      <section class="card chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>Visão geral</h3>
+            <span class="chart-subtitle">Evolução do saldo</span>
+            <p id="chartPeriod" class="chart-period">Período: —</p>
+          </div>
+
+          <div class="chart-controls">
+            <div class="chart-filters">
+              <button class="chart-filter-btn" data-range="today" type="button">Hoje</button>
+              <button class="chart-filter-btn active" data-range="7" type="button">7 dias</button>
+              <button class="chart-filter-btn" data-range="30" type="button">30 dias</button>
+            </div>
+          </div>
         </div>
 
-        <input 
-          type="number" 
-          id="amount" 
-          placeholder="Valor (use negativo para gasto)" 
-          step="0.01" 
-          required
-        >
-
-        <button type="submit">Adicionar</button>
-      </form>
-    </section>
-
-    <!-- LISTA -->
-    <section class="card">
-      <h3>Transações</h3>
-      <ul id="transactionsList"></ul> 
-    </section>
+        <div class="chart-wrapper">
+          <canvas id="balanceChart"></canvas>
+        </div>
+      </section>
+    </div>
 
   </main>
 
   <!-- MODAL LOGOUT -->
-<div id="logoutModal" class="modal hidden">
-  <div class="modal-content">
-    <p>Tem certeza que deseja fazer o logout?</p>
+  <div id="logoutModal" class="modal hidden">
+    <div class="modal-content">
+      <p>Tem certeza que deseja fazer o logout?</p>
 
-    <div class="modal-actions">
-      <button id="confirmLogout">Sim</button>
-      <button id="cancelLogout">Não</button>
+      <div class="modal-actions">
+        <button id="confirmLogout">Sim</button>
+        <button id="cancelLogout">Não</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="deleteModal" class="modal hidden">
-  <div class="modal-content">
-    <p>Tem certeza que deseja excluir esta transação?</p>
+  <!-- MODAL DELETE -->
+  <div id="deleteModal" class="modal hidden">
+    <div class="modal-content">
+      <p>Tem certeza que deseja excluir esta transação?</p>
 
-    <div class="modal-actions">
-      <button id="confirmDelete">Sim</button>
-      <button id="cancelDelete">Não</button>
+      <div class="modal-actions">
+        <button id="confirmDelete">Sim</button>
+        <button id="cancelDelete">Não</button>
+      </div>
     </div>
   </div>
-</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="chart.js"></script>
   <script src="dashboard.js"></script>
 
 </body>
+
 </html>

@@ -3,18 +3,78 @@ const router = express.Router();
 
 const Transaction = require("../models/Transaction");
 const authMiddleware = require("../middleware/authMiddleware");
+const MIN_TRANSACTION_DATE = new Date("2026-01-01T00:00:00.000Z");
+
+function normalizeTransactionDate(rawDate) {
+  if (!rawDate) {
+    return new Date();
+  }
+
+  if (typeof rawDate === "string") {
+    const trimmedDate = rawDate.trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmedDate)) {
+      return new Date(`${trimmedDate}T12:00:00.000Z`);
+    }
+
+    const parsedDate = new Date(trimmedDate);
+
+    if (!Number.isNaN(parsedDate.getTime())) {
+      const isMidnightUtc =
+        parsedDate.getUTCHours() === 0 &&
+        parsedDate.getUTCMinutes() === 0 &&
+        parsedDate.getUTCSeconds() === 0 &&
+        parsedDate.getUTCMilliseconds() === 0;
+
+      if (isMidnightUtc) {
+        const dateKey = trimmedDate.slice(0, 10);
+
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) {
+          return new Date(`${dateKey}T12:00:00.000Z`);
+        }
+      }
+
+      return parsedDate;
+    }
+  }
+
+  return new Date();
+}
+
+function isAllowedTransactionDate(date) {
+  return date instanceof Date &&
+    !Number.isNaN(date.getTime()) &&
+    date >= MIN_TRANSACTION_DATE;
+}
+
+function isAllowedTransactionAmount(amount) {
+  return Number.isFinite(amount) && amount > 0;
+}
 
 router.post("/", authMiddleware, async (req, res) => {
-
   try {
+    const { type, amount, description, date } = req.body;
+    const normalizedDate = normalizeTransactionDate(date);
+    const normalizedAmount = Number(amount);
 
-    const { type, amount, description } = req.body;
+    if (!isAllowedTransactionDate(normalizedDate)) {
+      return res.status(400).json({
+        message: "A data da transação não pode ser anterior a 01/01/2026"
+      });
+    }
+
+    if (!isAllowedTransactionAmount(normalizedAmount)) {
+      return res.status(400).json({
+        message: "O valor da transação deve ser maior que 0"
+      });
+    }
 
     const transaction = new Transaction({
       userId: req.userId,
       type,
-      amount,
-      description
+      amount: normalizedAmount,
+      description,
+      date: normalizedDate
     });
 
     await transaction.save();
@@ -23,25 +83,17 @@ router.post("/", authMiddleware, async (req, res) => {
       message: "Transação adicionada",
       transaction
     });
-
   } catch (error) {
+    console.error(error);
 
-  console.error(error); 
-
-  res.status(500).json({
-    message: "Erro ao criar transação"
-  });
-
-}
-
+    res.status(500).json({
+      message: "Erro ao criar transação"
+    });
+  }
 });
 
-module.exports = router;
-
 router.get("/", authMiddleware, async (req, res) => {
-
   try {
-
     const transactions = await Transaction.find({
       userId: req.userId
     }).sort({ date: -1 });
@@ -49,7 +101,7 @@ router.get("/", authMiddleware, async (req, res) => {
     let income = 0;
     let expense = 0;
 
-    transactions.forEach(t => {
+    transactions.forEach((t) => {
       if (t.type === "income") {
         income += t.amount;
       } else {
@@ -65,21 +117,15 @@ router.get("/", authMiddleware, async (req, res) => {
       expense,
       transactions
     });
-
   } catch (error) {
-
     res.status(500).json({
       message: "Erro ao buscar transações"
     });
-
   }
-
 });
 
 router.delete("/:id", authMiddleware, async (req, res) => {
-
   try {
-
     const transaction = await Transaction.findOneAndDelete({
       _id: req.params.id,
       userId: req.userId
@@ -94,22 +140,30 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.json({
       message: "Transação removida com sucesso"
     });
-
   } catch (error) {
-
     res.status(500).json({
       message: "Erro ao deletar transação"
     });
-
   }
-
 });
 
 router.put("/:id", authMiddleware, async (req, res) => {
-
   try {
+    const { type, amount, description, date } = req.body;
+    const normalizedDate = normalizeTransactionDate(date);
+    const normalizedAmount = Number(amount);
 
-    const { type, amount, description } = req.body;
+    if (!isAllowedTransactionDate(normalizedDate)) {
+      return res.status(400).json({
+        message: "A data da transação não pode ser anterior a 01/01/2026"
+      });
+    }
+
+    if (!isAllowedTransactionAmount(normalizedAmount)) {
+      return res.status(400).json({
+        message: "O valor da transação deve ser maior que 0"
+      });
+    }
 
     const transaction = await Transaction.findOneAndUpdate(
       {
@@ -118,8 +172,9 @@ router.put("/:id", authMiddleware, async (req, res) => {
       },
       {
         type,
-        amount,
-        description
+        amount: normalizedAmount,
+        description,
+        date: normalizedDate
       },
       { new: true }
     );
@@ -134,13 +189,11 @@ router.put("/:id", authMiddleware, async (req, res) => {
       message: "Transação atualizada",
       transaction
     });
-
   } catch (error) {
-
     res.status(500).json({
       message: "Erro ao atualizar transação"
     });
-
   }
-
 });
+
+module.exports = router;
