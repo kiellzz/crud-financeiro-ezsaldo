@@ -1,6 +1,6 @@
-> ⚠️ **Status do Projeto:** Em desenvolvimento (atualmente rodando localmente)
+> ⚠️ **Project Status:** In development (currently running locally)
 
-# 💰 EZSaldo • Sistema Financeiro Web
+# 💰 EZSaldo • Financial Web App
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -9,95 +9,95 @@
 ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 
-O **EZSaldo** é uma aplicação web de controle financeiro desenvolvida com foco em **clareza, organização e experiência do usuário**.
+**EZSaldo** is a financial management web application built with a strong focus on **clarity, organization, and user experience**.
 
-O sistema permite gerenciar receitas e despesas, acompanhar o saldo em tempo real e visualizar a evolução financeira através de um dashboard moderno e interativo.
+The system allows users to manage income and expenses, track balance in real time, and visualize financial evolution through a modern and interactive dashboard.
 
 ---
 
-## 🎯 Objetivo do Projeto
+## 🎯 Project Goal
 
-Este projeto foi desenvolvido com o objetivo de:
+This project was built to:
 
-- Simular um sistema financeiro real
-- Praticar desenvolvimento fullstack (frontend + backend)
-- Aplicar conceitos de UX/UI em um produto funcional
+- Simulate a real-world financial system  
+- Practice fullstack development (frontend + backend)  
+- Apply UX/UI concepts in a functional product  
 
 ---
 
 ## 📸 Preview
 
-Interface moderna com foco em experiência do usuário:
+A modern interface focused on user experience:
 
-### 🔐 Tela de Login
+### 🔐 Login Screen
 ![Login](./media/login.png)
 
-### 📊 Dashboard Financeiro
+### 📊 Financial Dashboard
 ![Dashboard](./media/dashboard.png)
 
-### 👤 Edição de Perfil
+### 👤 Profile Editing
 ![Edit User](./media/edituser.png)
 
-### ✂️ Recorte de Avatar
+### ✂️ Avatar Cropping
 ![Crop](./media/crop.png)
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠 Tech Stack
 
 ### 🔹 Frontend
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- Interface responsiva
-- Feedback visual (loaders, estados, modais)
+- HTML5  
+- CSS3  
+- Vanilla JavaScript  
+- Responsive interface  
+- Visual feedback (loaders, states, modals)  
 
 ### 🔹 Backend
-- Node.js
-- Express
-- MongoDB (Atlas)
-- Mongoose
-- JWT (autenticação)
-- bcrypt (criptografia de senha)
+- Node.js  
+- Express  
+- MongoDB (Atlas)  
+- Mongoose  
+- JWT (authentication)  
+- bcrypt (password hashing)  
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-- 🔐 **Autenticação segura**
-  - Cadastro e login com senha criptografada
-  - Autenticação via JWT
+- 🔐 **Secure Authentication**
+  - Register and login with hashed passwords  
+  - JWT-based authentication  
 
-- 💰 **Gestão de Transações**
-  - Adição de receitas e despesas
-  - Edição e exclusão de registros
+- 💰 **Transaction Management**
+  - Add income and expenses  
+  - Edit and delete records  
 
-- 📊 **Dashboard Dinâmico**
-  - Saldo atualizado em tempo real
-  - Diferenciação visual (positivo/negativo)
-  - Gráfico de evolução do saldo
+- 📊 **Dynamic Dashboard**
+  - Real-time balance updates  
+  - Visual differentiation (income vs expenses)  
+  - Balance evolution chart  
 
-- 📅 **Filtros de Período**
-  - Visualização por intervalo (7 dias, 30 dias)
+- 📅 **Date Filters**
+  - View data by time range (7 days, 30 days)  
 
-- 🎨 **Experiência do Usuário**
-  - Modais de confirmação (exclusão/logout)
-  - Feedback visual em ações
-  - Loader durante requisições
-  - Interface moderna e consistente
-
----
-
-## 🧩 Diferenciais
-
-- Interface inspirada em aplicações reais (fintechs)
-- Foco em **usabilidade e feedback visual**
-- Estrutura organizada (frontend + backend separados)
-- Projeto pensado como produto, não apenas CRUD
+- 🎨 **User Experience**
+  - Confirmation modals (delete/logout)  
+  - Visual feedback for actions  
+  - Loading states during requests  
+  - Clean and modern interface  
 
 ---
 
-## 🖥️ Estrutura do Projeto
+## 🧩 Highlights
+
+- Interface inspired by real fintech applications  
+- Strong focus on **usability and visual feedback**  
+- Clean architecture (separated frontend & backend)  
+- Built as a **product**, not just a CRUD  
+
+---
+
+## 🖥️ Project Structure
 
 ```text
 CrudFinanceiro/
@@ -142,68 +142,67 @@ CrudFinanceiro/
 
 ---
 
-## ⚙️ Como executar localmente
+## ⚙️ Running Locally
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
-```bash
+```bash id="cloneez"
 git clone https://github.com/kiellzz/CrudFinanceiro.git
 cd CrudFinanceiro
 ```
 
 ---
 
-### 2. Configuração do Backend
+### 2. Backend Setup
 
-```bash
+```bash id="installez"
 cd backend
 npm install
 ```
 
-Crie o arquivo `.env` e configure:
+Create a `.env` file:
 
 ```env
-MONGO_URI=sua_string_mongodb
-JWT_SECRET=sua_chave_secreta
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 ```
 
-Inicie o servidor:
+Start the server:
 
-```bash
+```bash id="startez"
 npm start
 ```
 
-> 📍 Backend disponível em: [http://localhost:5000](http://localhost:5000)
+> 📍 Backend running at: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-### 3. Rodando o Frontend
+### 3. Run Frontend
 
-* Abra o arquivo `login.html` no navegador
-  **ou**
-* Use a extensão **Live Server** no VS Code
-
----
-
-## 📌 Melhorias Futuras
-
-* 📊 Insights financeiros automáticos
-* 🧠 Análise de gastos por categoria
-* 📱 Melhor responsividade mobile
-* ☁️ Deploy completo (frontend + backend)
+* Open `login.html` in your browser
+  or
+* Use **Live Server** in VS Code
 
 ---
 
-## 👨‍💻 Autor
+## 📌 Future Improvements
 
-Desenvolvido por **Ezequiel Borges**
-
-🔗 GitHub: [https://github.com/kiellzz](https://github.com/kiellzz)
-
-🔗 LinkedIn: [https://www.linkedin.com/in/ezequielborgesdev](https://www.linkedin.com/in/ezequielborgesdev)
+* 📊 Financial insights and analytics
+* 🧠 Expense categorization
+* 📱 Better mobile responsiveness
+* ☁️ Full deployment (frontend + backend)
 
 ---
 
-## ⭐ Considerações
+## 👨‍💻 Author
 
-Este projeto representa minha evolução como desenvolvedor, com foco em construir aplicações que entregam não apenas funcionalidade, mas também **experiência e clareza para o usuário**.
+Developed by **Ezequiel Borges**
+
+* GitHub: [https://github.com/kiellzz](https://github.com/kiellzz)
+* LinkedIn: [https://www.linkedin.com/in/ezequielborgesdev](https://www.linkedin.com/in/ezequielborgesdev)
+
+---
+
+## ⭐ Final Notes
+
+This project represents my growth as a developer, focusing on building applications that deliver not only functionality, but also **clarity, usability, and user experience**.
