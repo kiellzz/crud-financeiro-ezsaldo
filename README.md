@@ -1,4 +1,4 @@
-> ⚠️ **Project Status:** In development (currently running locally)
+f> ⚠️ **Project Status:** In development (currently running locally)
 
 # 💰 EZSaldo • Financial Web App
 
@@ -170,7 +170,7 @@ JWT_SECRET=your_secret_key
 Start the server:
 
 ```bash id="startez"
-npm start
+node server.js
 ```
 
 > 📍 Backend running at: [http://localhost:5000](http://localhost:5000)
