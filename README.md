@@ -170,6 +170,7 @@ JWT_SECRET=your_secret_key
 Start the server:
 
 ```bash id="startez"
+cd backend/src
 node server.js
 ```
 
