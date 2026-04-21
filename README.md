@@ -147,8 +147,8 @@ CrudFinanceiro/
 ### 1. Clone the repository
 
 ```bash id="cloneez"
-git clone https://github.com/kiellzz/CrudFinanceiro.git
-cd CrudFinanceiro
+git clone https://github.com/kiellzz/financial-tracker.git
+cd financial-tracker
 ```
 
 ---
