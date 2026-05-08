@@ -382,6 +382,10 @@ function adjustTransactionDate(offsetDays) {
     nextDateKey = MIN_TRANSACTION_DATE;
   }
 
+  if (nextDateKey > getTodayDateKey()) {
+    nextDateKey = getTodayDateKey();
+  }
+
   setTransactionDateValue(nextDateKey);
 }
 
@@ -439,6 +443,7 @@ function resetFormState() {
 
   if (elements.dateInput) {
     elements.dateInput.min = MIN_TRANSACTION_DATE;
+    elements.dateInput.max = getTodayDateKey();
     setTransactionDateValue(getDefaultTransactionDateKey());
   }
 
@@ -1244,6 +1249,7 @@ function setupEvents() {
 function init() {
   if (elements.dateInput) {
     elements.dateInput.min = MIN_TRANSACTION_DATE;
+    elements.dateInput.max = getTodayDateKey();
     setTransactionDateValue(getDefaultTransactionDateKey());
   }
 
