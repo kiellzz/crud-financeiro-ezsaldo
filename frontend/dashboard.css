@@ -50,7 +50,7 @@ body {
   z-index: -1;
 }
 
-/* HEADER */
+/* ─── HEADER ─────────────────────────────────────────────────── */
 .dashboard-header {
   width: 100%;
   display: grid;
@@ -272,8 +272,8 @@ body {
 
 .logout-btn {
   flex-shrink: 0;
-  width: 56px;
-  min-width: 56px;
+  width: 44px;
+  min-width: 44px;
   height: 44px;
   background: transparent;
   color: #ffffff;
@@ -289,8 +289,8 @@ body {
 }
 
 .logout-btn svg {
-  width: 33px;
-  height: 33px;
+  width: 28px;
+  height: 28px;
   display: block;
   fill: currentColor;
   stroke: none;
@@ -301,7 +301,7 @@ body {
   color: rgba(255, 80, 80, 0.85);
 }
 
-/* LAYOUT PRINCIPAL */
+/* ─── LAYOUT PRINCIPAL ────────────────────────────────────────── */
 .dashboard-layout {
   width: min(1520px, 100%);
   min-height: calc(100vh - 88px);
@@ -325,7 +325,7 @@ body {
   height: 100%;
 }
 
-/* CARDS */
+/* ─── CARDS ───────────────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
@@ -364,7 +364,7 @@ body {
   font-weight: 600;
 }
 
-/* SALDO */
+/* ─── SALDO ───────────────────────────────────────────────────── */
 .saldo-card {
   padding: 28px 24px;
   background:
@@ -401,7 +401,7 @@ body {
   text-shadow: none;
 }
 
-/* FORM */
+/* ─── FORM ────────────────────────────────────────────────────── */
 #transactionForm {
   display: flex;
   flex-direction: column;
@@ -549,7 +549,7 @@ button:active {
   transform: scale(0.97);
 }
 
-/* CARD DO GRÁFICO - ESTILO TRADING */
+/* ─── GRÁFICO ─────────────────────────────────────────────────── */
 .chart-card {
   display: flex;
   flex-direction: column;
@@ -583,8 +583,9 @@ button:active {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 18px;
   flex-shrink: 0;
 }
@@ -612,7 +613,7 @@ button:active {
   height: 100% !important;
 }
 
-/* TRANSAÇÕES */
+/* ─── TRANSAÇÕES ──────────────────────────────────────────────── */
 .transactions-card {
   min-height: 220px;
 }
@@ -798,7 +799,7 @@ button:active {
   opacity: 0.8;
 }
 
-/* MODAIS */
+/* ─── MODAIS ──────────────────────────────────────────────────── */
 .modal {
   position: fixed;
   inset: 0;
@@ -867,7 +868,7 @@ button:active {
   transform: translateY(-2px);
 }
 
-/* LOADER */
+/* ─── LOADER ──────────────────────────────────────────────────── */
 .loader {
   position: fixed;
   inset: 0;
@@ -947,7 +948,7 @@ button:active {
   box-shadow: 0 0 20px rgba(53, 194, 255, 0.22);
 }
 
-/* TOGGLE TRANSITION + FILTERS */
+/* ─── TOGGLE + FILTROS ────────────────────────────────────────── */
 .toggle-transactions-btn {
   margin-top: 14px;
   width: 100%;
@@ -974,14 +975,6 @@ button:active {
   border-color: rgba(53, 194, 255, 0.3);
   color: #d9eeff;
   box-shadow: 0 0 16px rgba(53, 194, 255, 0.08);
-}
-
-.chart-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
 }
 
 .chart-filters {
@@ -1031,179 +1024,47 @@ button:active {
   opacity: 0.95;
 }
 
-/* ANIMAÇÕES */
+/* ─── ANIMAÇÕES ───────────────────────────────────────────────── */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes shine {
-  0% {
-    background-position: -200% center;
-  }
-
-  20% {
-    background-position: 200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
+  0%  { background-position: -200% center; }
+  20% { background-position:  200% center; }
+  100%{ background-position:  200% center; }
 }
 
 @keyframes ezGlowPulse {
-
-  0%,
-  100% {
+  0%,100% {
     text-shadow:
-      0 0 8px rgba(53, 194, 255, 0.3),
-      0 0 18px rgba(53, 194, 255, 0.18),
-      0 0 28px rgba(53, 194, 255, 0.08);
+      0 0 8px  rgba(53,194,255,0.30),
+      0 0 18px rgba(53,194,255,0.18),
+      0 0 28px rgba(53,194,255,0.08);
   }
-
   50% {
     text-shadow:
-      0 0 12px rgba(53, 194, 255, 0.52),
-      0 0 28px rgba(53, 194, 255, 0.34),
-      0 0 42px rgba(53, 194, 255, 0.16);
+      0 0 12px rgba(53,194,255,0.52),
+      0 0 28px rgba(53,194,255,0.34),
+      0 0 42px rgba(53,194,255,0.16);
   }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
 }
 
-/* RESPONSIVO */
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVIDADE — BREAKPOINTS MELHORADOS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1280px ─────────────────────────────────────────────────── */
 @media (max-width: 1280px) {
   .dashboard-layout {
     grid-template-columns: minmax(380px, 560px) minmax(420px, 1fr);
   }
 
-  .chart-wrapper {
-    min-height: 500px;
-  }
-}
-
-@media (max-width: 1100px) {
-  .dashboard-layout {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .dashboard-right {
-    order: -1;
-    height: auto;
-  }
-
-  .dashboard-left {
-    max-width: 100%;
-  }
-
-  .chart-card {
-    min-height: auto;
-  }
-
-  .chart-wrapper {
-    min-height: 360px;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-header {
-    grid-template-columns: 1fr;
-    justify-items: stretch;
-    gap: 10px;
-    padding: 10px 14px;
-  }
-
-  .logo-header {
-    justify-self: center;
-  }
-
-  .header-actions {
-    justify-self: stretch;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .welcome-box {
-    align-items: flex-start;
-  }
-
-  .dashboard-layout {
-    margin-top: 16px;
-    padding: 0 14px 28px;
-    gap: 18px;
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-left,
-  .dashboard-right {
-    gap: 18px;
-  }
-
-  .card {
-    padding: 20px 16px;
-    border-radius: 18px;
-  }
-
-  .chart-card {
-    padding: 18px 16px 14px;
-  }
-
-  .chart-wrapper {
-    min-height: 300px;
-  }
-
-  #balance {
-    font-size: 2.2rem;
-  }
-
-  .bg-video {
-    display: none;
-  }
-
-  .header-user-panel {
-    max-width: 100%;
-    padding-right: 12px;
-  }
-
-  .name {
-    max-width: 100%;
-  }
-
-  .app-toast {
-    top: auto;
-    right: 14px;
-    bottom: 16px;
-    left: 14px;
-    min-width: 0;
-    max-width: none;
-  }
-}
-
-@media (max-width: 700px) {
-  .transaction-item {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .transaction-right {
-    justify-content: space-between;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1280px) {
   .chart-card {
     min-height: 560px;
     height: 560px;
@@ -1211,7 +1072,26 @@ button:active {
   }
 }
 
+/* ── 1100px ─────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  /* No tablet/mobile, gráfico fica abaixo do saldo:
+     saldo-card recebe order negativo via .dashboard-left  */
+  .dashboard-right {
+    height: auto;
+    /* gráfico fica ABAIXO do conteúdo da esquerda */
+    order: 1;
+  }
+
+  .dashboard-left {
+    max-width: 100%;
+    order: 0;
+  }
+
   .chart-card {
     min-height: 420px;
     height: 420px;
@@ -1219,18 +1099,309 @@ button:active {
   }
 }
 
+/* ── 768px — MOBILE PRINCIPAL ───────────────────────────────── */
 @media (max-width: 768px) {
+
+  /* Header: logo centralizado, actions numa linha única */
+  .dashboard-header {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .logo-header {
+    justify-self: center;
+    font-size: 1.45rem;
+  }
+
+  .header-actions {
+    justify-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Painel do usuário ocupa o espaço disponível mas cede pro logout */
+  .header-user-panel {
+    flex: 1;
+    max-width: none;
+    padding: 6px 12px 6px 6px;
+  }
+
+  /* Oculta a seta do painel em telas pequenas — economiza espaço */
+  .header-user-panel-arrow {
+    display: none;
+  }
+
+  .welcome-box {
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  .name {
+    max-width: 100%;
+    font-size: 0.92rem;
+  }
+
+  /* Layout */
+  .dashboard-layout {
+    margin-top: 12px;
+    padding: 0 12px 28px;
+    gap: 14px;
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    gap: 14px;
+  }
+
+  /* Cards com padding levemente reduzido */
+  .card {
+    padding: 18px 15px;
+    border-radius: 18px;
+  }
+
+  .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+  }
+
+  /* Saldo: compacto no mobile */
+  .saldo-card {
+    padding: 16px 18px;
+  }
+
+  .saldo-card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  #balance {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+    letter-spacing: 0.5px;
+  }
+
+  /* Inputs mobile: altura mínima de toque 48px */
+  #transactionForm input {
+    height: 50px;
+    font-size: 1rem;
+    border-radius: 11px;
+  }
+
+  #transactionForm button[type="submit"] {
+    height: 50px;
+    font-size: 1rem;
+    border-radius: 11px;
+    /* facilita toque */
+    margin-top: 6px;
+  }
+
+  /* Stepper: área de toque maior */
+  .amount-stepper,
+  .date-stepper {
+    height: 38px;
+    width: 28px;
+    right: 8px;
+  }
+
+  .amount-step-btn,
+  .date-step-btn {
+    width: 20px;
+    height: 16px;
+  }
+
+  /* Gráfico: maior no mobile para boa leitura */
   .chart-card {
-    min-height: 320px;
-    height: 320px;
-    max-height: 320px;
-    padding: 18px 16px 14px;
+    min-height: 420px;
+    height: 420px;
+    max-height: 420px;
+    padding: 16px 14px 12px;
+  }
+
+  /* Header do gráfico: título + filtros lado a lado */
+  .chart-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .chart-header > div:first-child {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .chart-header h3 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+
+  .chart-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .chart-period {
+    font-size: 0.74rem;
+    margin-top: 3px;
+  }
+
+  /* Filtros: numa linha, sem wrap, tamanho fixo */
+  .chart-controls {
+    flex-shrink: 0;
+  }
+
+  .chart-filters {
+    gap: 5px;
+    flex-wrap: nowrap;
+  }
+
+  .chart-filter-btn {
+    flex: none;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    line-height: 30px;
+  }
+
+  /* Toast na parte inferior */
+  .app-toast {
+    top: auto;
+    right: 12px;
+    bottom: 14px;
+    left: 12px;
+    min-width: 0;
+    max-width: none;
+  }
+
+  /* Esconde vídeo de fundo no mobile (performance) */
+  .bg-video {
+    display: none;
   }
 }
 
-@media (max-width: 768px) {
-  .chart-header {
+/* ── 600px — TRANSAÇÕES ─────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* Transação vira cartão vertical */
+  .transaction-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px 14px;
+    border-radius: 14px;
+  }
+
+  .transaction-left {
+    gap: 10px;
+  }
+
+  .transaction-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .transaction-title {
+    font-size: 0.94rem;
+  }
+
+  .transaction-subtitle {
+    font-size: 0.82rem;
+  }
+
+  /* Linha inferior: valor à esquerda, ações à direita */
+  .transaction-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .transaction-value {
+    font-size: 1rem;
+  }
+
+  /* Botões de ação levemente menores mas ainda 44px de toque */
+  .edit-btn,
+  .delete-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+  }
+
+  /* Toggle "Exibir mais" */
+  .toggle-transactions-btn {
+    height: 46px;
+    font-size: 0.92rem;
+  }
+}
+
+/* ── 420px — TELAS MUITO PEQUENAS ──────────────────────────── */
+@media (max-width: 420px) {
+
+  .dashboard-header {
+    padding: 8px 10px;
+  }
+
+  .logo-header {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-layout {
+    padding: 0 10px 24px;
+    gap: 12px;
+  }
+
+  .card {
+    padding: 16px 13px;
+    border-radius: 16px;
+  }
+
+  #balance {
+    font-size: clamp(1.4rem, 8vw, 1.8rem);
+  }
+
+  .chart-card {
+    min-height: 360px;
+    height: 360px;
+    max-height: 360px;
+  }
+
+  /* Avatar levemente menor */
+  .dashboard-avatar-shell {
+    width: 36px;
+    height: 36px;
+  }
+
+  .intro {
+    font-size: 0.58rem;
+  }
+
+  .name {
+    font-size: 0.88rem;
+  }
+
+  /* Formulário com gap menor */
+  #transactionForm {
+    gap: 11px;
+  }
+
+  /* Modal ocupa mais da largura */
+  .modal-content {
+    padding: 20px 16px;
+  }
+
+  .modal-actions button {
+    min-width: 80px;
+    height: 40px;
+    font-size: 0.9rem;
   }
 }

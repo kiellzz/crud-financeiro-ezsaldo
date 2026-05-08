@@ -887,3 +887,7 @@ a:hover {
 .cropper-face {
   border-radius: 50%;
 }
+
+.main-logo {
+  font-size: clamp(2.8rem, 14vw, 7rem);
+}
