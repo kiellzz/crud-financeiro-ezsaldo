@@ -8,6 +8,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 
 [![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-financial--tracker--1ky7.vercel.app-brightgreen?style=for-the-badge)](https://financial-tracker-1ky7.vercel.app/)
+![Tests](https://github.com/kiellzz/financial-tracker/actions/workflows/tests.yml/badge.svg)
 
 **EZSaldo** is a financial management web application built with a strong focus on **clarity, organization, and user experience**.
 
@@ -58,6 +59,11 @@ This project was built to:
 - JWT (authentication)
 - bcrypt (password hashing)
 
+### 🔹 Testing
+- Jest
+- Supertest
+- MongoDB Memory Server (in-memory database for isolated tests)
+
 ### 🔹 Deploy
 - Frontend: Vercel
 - Backend: Render
@@ -104,8 +110,15 @@ This project was built to:
 
 ```text
 CrudFinanceiro/
+├─ .github/
+│  └─ workflows/
+│     └─ tests.yml
+│
 ├─ backend/
 │  ├─ src/
+│  │  ├─ __tests__/
+│  │  │  ├─ auth.test.js
+│  │  │  └─ transactions.test.js
 │  │  ├─ middleware/
 │  │  │  └─ authMiddleware.js
 │  │  ├─ models/
@@ -114,6 +127,7 @@ CrudFinanceiro/
 │  │  ├─ routes/
 │  │  │  ├─ authRoutes.js
 │  │  │  └─ transactionRoutes.js
+│  │  ├─ app.js
 │  │  └─ server.js
 │  ├─ .env.example
 │  ├─ package-lock.json
@@ -172,13 +186,19 @@ JWT_SECRET=your_secret_key
 Start the server:
 
 ```bash
-cd backend/src
-node server.js
+node src/server.js
 ```
 
 > 📍 Backend running at: http://localhost:5000
 
-### 3. Run Frontend
+### 3. Run tests
+
+```bash
+cd backend
+npm test
+```
+
+### 4. Run Frontend
 
 - Open `login.html` in your browser
 or
@@ -188,9 +208,7 @@ or
 
 ## 📌 Future Improvements
 
-- 📊 Financial insights and analytics
-- 🧠 Expense categorization
-- 📱 Better mobile responsiveness
+- 📊 Peer-to-peer transaction transfers between registered users
 
 ---
 
