@@ -1,4 +1,4 @@
-> ⚠️ **Project Status:** In development (currently running locally)
+f> ⚠️ **Project Status:** In development (currently running locally)
 
 # 💰 EZSaldo • Financial Web App
 
@@ -147,8 +147,8 @@ CrudFinanceiro/
 ### 1. Clone the repository
 
 ```bash id="cloneez"
-git clone https://github.com/kiellzz/CrudFinanceiro.git
-cd CrudFinanceiro
+git clone https://github.com/kiellzz/financial-tracker.git
+cd financial-tracker
 ```
 
 ---
@@ -170,7 +170,8 @@ JWT_SECRET=your_secret_key
 Start the server:
 
 ```bash id="startez"
-npm start
+cd backend/src
+node server.js
 ```
 
 > 📍 Backend running at: [http://localhost:5000](http://localhost:5000)
