@@ -2,7 +2,7 @@
 // CONFIG
 // ==============================
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://ezsaldo-backend.onrender.com/api/auth";
 const USER_PROFILE_IMAGE_STORAGE_KEY = "userProfileImage";
 const NAME_LOCALE = "pt-BR";
 const MIN_PASSWORD_LENGTH = 6;

@@ -8,8 +8,8 @@ function hideLoader() {
   if (loader) loader.classList.add("hidden");
 }
 
-const API_URL = "http://localhost:5000/api/transactions";
-const AUTH_API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://ezsaldo-backend.onrender.com/api/transactions";
+const AUTH_API_URL = "https://ezsaldo-backend.onrender.com/api/auth";
 const MIN_TRANSACTION_DATE = "2026-01-01";
 const DEFAULT_AVATAR_SRC = "assets/avatar-default.png";
 const USER_PROFILE_IMAGE_STORAGE_KEY = "userProfileImage";
