@@ -1,4 +1,4 @@
-require("dotenv").config();
+process.env.JWT_SECRET = process.env.JWT_SECRET || "test-secret";
 
 const request = require("supertest");
 const mongoose = require("mongoose");
