@@ -18,6 +18,7 @@
 
   <div id="globalLoader" class="loader hidden">
     <div class="spinner"></div>
+    <p class="loader-message" role="status">Aviso: Esse processo pode levar um tempo.</p>
   </div>
 
   <div id="appToast" class="app-toast hidden" role="status" aria-live="polite"></div>
@@ -145,6 +146,7 @@
               <button class="chart-filter-btn" data-range="today" type="button">Hoje</button>
               <button class="chart-filter-btn active" data-range="7" type="button">7 dias</button>
               <button class="chart-filter-btn" data-range="30" type="button">30 dias</button>
+              <button class="chart-filter-btn" data-range="account" type="button">Desde o início</button>
             </div>
           </div>
         </div>
@@ -152,6 +154,17 @@
         <div class="chart-wrapper">
           <canvas id="balanceChart"></canvas>
         </div>
+      </section>
+
+      <section id="periodResultCard" class="card period-result-card neutral" aria-live="polite">
+        <div class="period-result-header">
+          <span class="period-result-label">Resultado do período</span>
+          <span id="periodResultRange" class="period-result-range">—</span>
+        </div>
+
+        <p id="periodResultMessage" class="period-result-message">
+          Seu saldo permaneceu igual
+        </p>
       </section>
     </div>
 
@@ -182,8 +195,14 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="chart.js"></script>
-  <script src="dashboard.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/formatters.js"></script>
+  <script src="scripts/dateUtils.js"></script>
+  <script src="scripts/dashboardApi.js"></script>
+  <script src="scripts/chartData.js"></script>
+  <script src="scripts/balanceChart.js"></script>
+  <script src="scripts/dashboardDom.js"></script>
+  <script src="scripts/dashboard.js"></script>
 
 </body>
 

@@ -554,9 +554,9 @@ button:active {
   display: flex;
   flex-direction: column;
   padding: 22px 22px 18px;
-  min-height: 640px;
-  height: calc(100vh - 122px);
-  max-height: calc(100vh - 122px);
+  min-height: 460px;
+  height: clamp(460px, calc(100vh - 322px), 640px);
+  max-height: 640px;
   background:
     linear-gradient(180deg, rgba(12, 22, 44, 0.94), rgba(7, 16, 32, 0.96)),
     rgba(10, 18, 36, 0.92);
@@ -611,6 +611,104 @@ button:active {
   display: block;
   width: 100% !important;
   height: 100% !important;
+}
+
+.period-result-card {
+  min-height: 156px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  background:
+    linear-gradient(180deg, rgba(12, 22, 44, 0.9), rgba(7, 16, 32, 0.92)),
+    rgba(10, 18, 36, 0.86);
+  border-color: rgba(143, 163, 199, 0.16);
+}
+
+.period-result-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+.period-result-card.positive {
+  border-color: rgba(32, 212, 107, 0.26);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.46),
+    0 0 22px rgba(32, 212, 107, 0.06);
+}
+
+.period-result-card.positive::after {
+  background: linear-gradient(90deg, rgba(32, 212, 107, 0.18), transparent 58%);
+}
+
+.period-result-card.negative {
+  border-color: rgba(255, 91, 91, 0.28);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.46),
+    0 0 22px rgba(255, 91, 91, 0.06);
+}
+
+.period-result-card.negative::after {
+  background: linear-gradient(90deg, rgba(255, 91, 91, 0.16), transparent 58%);
+}
+
+.period-result-card.neutral {
+  border-color: rgba(143, 163, 199, 0.18);
+}
+
+.period-result-card.neutral::after {
+  background: linear-gradient(90deg, rgba(143, 163, 199, 0.12), transparent 58%);
+}
+
+.period-result-header,
+.period-result-message {
+  position: relative;
+  z-index: 1;
+}
+
+.period-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.period-result-label {
+  color: #8fa3c7;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.period-result-range {
+  color: #dbe7f8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.period-result-message {
+  color: #aeb8cb;
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.period-result-card.positive .period-result-message {
+  color: var(--green);
+}
+
+.period-result-card.negative .period-result-message {
+  color: var(--red);
+}
+
+.period-result-card.neutral .period-result-message {
+  color: #aeb8cb;
 }
 
 /* ─── TRANSAÇÕES ──────────────────────────────────────────────── */
@@ -874,8 +972,10 @@ button:active {
   inset: 0;
   background: rgba(4, 9, 20, 0.68);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 18px;
   z-index: 100;
   backdrop-filter: blur(6px);
 }
@@ -946,6 +1046,16 @@ button:active {
   border-radius: 50%;
   animation: spin 0.85s linear infinite;
   box-shadow: 0 0 20px rgba(53, 194, 255, 0.22);
+}
+
+.loader-message {
+  max-width: min(360px, calc(100vw - 48px));
+  color: #dbe7f8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 /* ─── TOGGLE + FILTROS ────────────────────────────────────────── */
@@ -1066,8 +1176,8 @@ button:active {
   }
 
   .chart-card {
-    min-height: 560px;
-    height: 560px;
+    min-height: 420px;
+    height: clamp(420px, calc(100vh - 300px), 560px);
     max-height: 560px;
   }
 }
@@ -1218,6 +1328,27 @@ button:active {
     height: 420px;
     max-height: 420px;
     padding: 16px 14px 12px;
+  }
+
+  .period-result-card {
+    min-height: 132px;
+    padding: 18px 16px;
+    gap: 10px;
+  }
+
+  .period-result-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .period-result-range {
+    text-align: left;
+    font-size: 0.82rem;
+  }
+
+  .period-result-message {
+    font-size: 1.08rem;
   }
 
   /* Header do gráfico: título + filtros lado a lado */
@@ -1373,6 +1504,10 @@ button:active {
     min-height: 360px;
     height: 360px;
     max-height: 360px;
+  }
+
+  .period-result-message {
+    font-size: 1rem;
   }
 
   /* Avatar levemente menor */

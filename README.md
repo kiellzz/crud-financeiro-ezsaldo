@@ -12,7 +12,7 @@
 
 **EZSaldo** is a financial management web application built with a strong focus on **clarity, organization, and user experience**.
 
-The system allows users to manage income and expenses, track balance in real time, and visualize financial evolution through a modern and interactive dashboard.
+The system allows users to manage income and expenses, track balance in real time, review period results, and visualize financial evolution through a modern and interactive dashboard.
 
 ---
 
@@ -48,6 +48,7 @@ This project was built to:
 - HTML5
 - CSS3
 - Vanilla JavaScript
+- Modular frontend scripts under `frontend/scripts`
 - Responsive interface
 - Visual feedback (loaders, states, modals)
 
@@ -85,14 +86,16 @@ This project was built to:
   - Real-time balance updates
   - Visual differentiation (income vs expenses)
   - Balance evolution chart
+  - Period result summary showing profit, loss, or neutral balance
 
 - 📅 **Date Filters**
-  - View data by time range (7 days, 30 days)
+  - View data by time range (today, 7 days, 30 days)
+  - Filter the chart from the user's account creation date
 
 - 🎨 **User Experience**
   - Confirmation modals (delete/logout)
   - Visual feedback for actions
-  - Loading states during requests
+  - Loading states with wait-time notice during requests
   - Clean and modern interface
 
 ---
@@ -102,6 +105,7 @@ This project was built to:
 - Interface inspired by real fintech applications
 - Strong focus on **usability and visual feedback**
 - Clean architecture (separated frontend & backend)
+- Dashboard logic organized into smaller script files
 - Built as a **product**, not just a CRUD
 
 ---
@@ -135,18 +139,25 @@ CrudFinanceiro/
 │
 ├─ frontend/
 │  ├─ assets/
-│  ├─ auth.js
-│  ├─ chart.js
-│  ├─ cropImage.js
 │  ├─ dashboard.css
 │  ├─ dashboard.html
-│  ├─ dashboard.js
 │  ├─ editUser.css
 │  ├─ editUser.html
-│  ├─ editUser.js
 │  ├─ index.html
 │  ├─ login.html
 │  ├─ register.html
+│  ├─ scripts/
+│  │  ├─ auth.js
+│  │  ├─ balanceChart.js
+│  │  ├─ chartData.js
+│  │  ├─ config.js
+│  │  ├─ cropImage.js
+│  │  ├─ dashboard.js
+│  │  ├─ dashboardApi.js
+│  │  ├─ dashboardDom.js
+│  │  ├─ dateUtils.js
+│  │  ├─ editUser.js
+│  │  └─ formatters.js
 │  └─ style.css
 │
 ├─ media/
